@@ -1,0 +1,10 @@
+POST http://127.0.0.1/notifications/api/notifications
+Content-Type: application/json
+
+{
+    "message": "Mr Edwin, Your loan repayment is due on 8/18/2024",
+    "source_id": "source123",
+    "subscriber_id": "255692410353",
+    "service_id": "service123",
+    "provider_id": "provider123"
+}
