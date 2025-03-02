@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\mailController;
 use App\Http\Controllers\StepController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\departmentsList;
@@ -27,6 +28,7 @@ Route::get('/logoutx', function () {
 })->name('logoutx');
 
 Route::post('/update-steps-order', [StepController::class, 'updateOrder'])->name('update-steps-order');
+Route::post('/sendmail', [mailController::class, 'send'])->name('sendmail');
 
 
 Route::get('/get-districts/{region}', [LocationController::class, 'getDistricts']);

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Mail\LimitEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 class NotificationController extends Controller
 {
@@ -78,11 +81,14 @@ class NotificationController extends Controller
                     'balance' => $balance,
                 ]);
             } else {
+                
                 // Handle non-successful response
                 Log::error('Failed to send SMS', [
                     'status' => $response->status(),
                     'body' => $response->body()
                 ]);
+                
+
 
                 // Update the notification with failure details
                 $notification->update([
@@ -98,6 +104,21 @@ class NotificationController extends Controller
                 ], $response->status());
             }
         } catch (\Exception $e) {
+
+
+            $email = $request->get('email');   
+            $data = $request->get('message');
+        
+            Mail::to($email)->send(new LimitEmail($data));
+            $notification = Notification::create([
+                'message' => $data,
+                'source_id' => $request->get('source_id'),
+                'subscriber_id' => $email,
+                'service_id' =>  $request->get('service_id'),
+                'provider_id' => $request->get('provider_id'),
+                'send_status' => 'pending',
+            ]);
+
             // Handle exceptions
             Log::error('Exception occurred while sending SMS', [
                 'error' => $e->getMessage()

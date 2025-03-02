@@ -3,6 +3,7 @@
 use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/notifications', [NotificationController::class, 'store']);
-
+Route::post('subscribers', [SubscriberController::class, 'store']);
 

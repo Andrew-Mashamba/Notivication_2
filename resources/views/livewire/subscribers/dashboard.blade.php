@@ -22,6 +22,10 @@
                         <h3 class="font-medium text-sm mt-6 mb-4 tracking-tight text-gray-900 leading-tight">
                             Subscribers Overview
                         </h3>
+                        <form action="{{ route('sendmail') }}" method="post">
+                            @csrf
+                            <button type="submit">send</button>
+                        </form>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <!-- Stock Summary -->
